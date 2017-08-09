@@ -1,8 +1,8 @@
-spring.application.name: myarmy
+spring.application.name: nolza
 
 ---
 
-dashboard.url: http://127.0.0.1
+#dashboard.url: http://127.0.0.1
 
 ---
 
@@ -15,26 +15,27 @@ spring.jpa:
   properties.hibernate.format_sql: true
   properties.hibernate.use_sql_comments: true
 ---
-
-logging.level:
-  com.skplanet.rnb: DEBUG
-  org.springframework: INFO
-  org.hibernate.SQL: DEBUG
-  org.hibernate.type: TRACE
-  org.hibernate.type.BasicTypeRegistry: WARN
+#
+#logging.difficulty:
+#  com.skplanet.rnb: DEBUG
+#  org.springframework: INFO
+#  org.hibernate.SQL: DEBUG
+#  org.hibernate.type: TRACE
+#  org.hibernate.type.BasicTypeRegistry: WARN
 ---
 
-spring.datasource.url: jdbc:mysql://52.78.173.18/myarmy?autoReconnect=true&useSSL=false&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
-spring.datasource.username: myarmy
-spring.datasource.password: 1234
-spring.datasource.driverClassName: com.mysql.jdbc.Driver
-spring.datasource.initialize: true
+#spring.datasource.url: jdbc:mysql://52.78.173.18/myarmy?autoReconnect=true&useSSL=false&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+#spring.datasource.username: myarmy
+#spring.datasource.password: 1234
+#spring.datasource.driverClassName: com.mysql.jdbc.Driver
+#spring.datasource.initialize: true
 
-#spring.datasource:
- # platform: h2
- #url: jdbc:h2:mem:myarmy;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
- # username: sa
- # initialize: true
+spring.datasource:
+  platform: h2
+  url: jdbc:h2:mem:nolza;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
+  username: sa
+  initialize: true
+  driver-class-name: org.h2.Driver
 ---
 spring.h2.console:
   enabled: true
@@ -45,26 +46,26 @@ spring.h2.console:
 spring.profiles: local-test
 
 ---
-### jwt Settings ###
-jwt.secret: a1g2y47dg3dj59fjhhsd7cnewy73j
-jwt.expiration: 6048000
-jwt.tokenheader: X-Auth-Token
+#### jwt Settings ###
+#jwt.secret: a1g2y47dg3dj59fjhhsd7cnewy73j
+#jwt.expiration: 6048000
+#jwt.tokenheader: X-Auth-Token
 
 
 ---
-test.token : eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhajExNTVAbmF2ZXIuY29tIiwiZXhwIjoxNDk2MTIxNjU5fQ.vK8tITxDUV2z7dBQMEoeBt_Cimd_8gw8LRe8Cy8e1xbd1o0VenPoQBrwYGg3HG_qZ9j2ZFDOY1e_KBaEg1p1Ng
+#test.token : eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhajExNTVAbmF2ZXIuY29tIiwiZXhwIjoxNDk2MTIxNjU5fQ.vK8tITxDUV2z7dBQMEoeBt_Cimd_8gw8LRe8Cy8e1xbd1o0VenPoQBrwYGg3HG_qZ9j2ZFDOY1e_KBaEg1p1Ng
 
 ---
-mail:
-  host: smtp.gmail.com
-  port: 587
-  protocol: smtp
-  default-encoding: UTF-8
-  username: win3winkr@gmail.com
-  password: dnlsdnls3#
-  smtp:
-    start-tls-enable: true
-    auth: true
+#mail:
+#  host: smtp.gmail.com
+#  port: 587
+#  protocol: smtp
+#  default-encoding: UTF-8
+#  username: win3winkr@gmail.com
+#  password: dnlsdnls3#
+#  smtp:
+#    start-tls-enable: true
+#    auth: true
 
 ---
 #spring.data.elasticsearch.cluster-nodes : localhost:9300

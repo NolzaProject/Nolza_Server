@@ -1,0 +1,5 @@
+INSERT INTO CATEGORY(TITLE, DESCRIPTION) VALUES ('평창1', '평창이 주제인 활동들1');
+
+INSERT INTO MISSION(TITLE, KEYWORD, DESCRIPTION, DIFFICULTY) VALUES ('평창맛집', '음식','평창 주변 맛집을 다녀오세요', '하');
+INSERT INTO MISSION(TITLE, KEYWORD, DESCRIPTION, DIFFICULTY) VALUES ('평창명소', '장소','평창에 명소에서 이런 사진을 찍어오세요', '상');
+INSERT INTO MISSION(TITLE, KEYWORD, DESCRIPTION, DIFFICULTY) VALUES ('평창놀거리', '놀거리','숙소에 돌아와서 이런 놀이를 즐기세요', '중');
