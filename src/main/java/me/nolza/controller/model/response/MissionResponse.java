@@ -13,5 +13,5 @@ public class MissionResponse {
     private String title;
     private String keyword;
     private String description;
-    private String level;
+    private String difficulty;
 }

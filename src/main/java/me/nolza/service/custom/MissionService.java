@@ -14,4 +14,5 @@ public interface MissionService {
      void deleteMission(Long Id);
      Mission updateMission(MissionRequest missionRequest);
      List<MissionResponse> getMissionList();
+     List<MissionResponse> readCategoryMissions(Long categoryId);
 }

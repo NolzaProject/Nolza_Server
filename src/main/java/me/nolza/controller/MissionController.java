@@ -43,4 +43,10 @@ public class MissionController {
         List<MissionResponse> missionResponseList = this.missionService.getMissionList();
         return new NolzaApiResponse<>(missionResponseList);
     }
+
+    @GetMapping("/{categoryId}")
+    public NolzaApiResponse<List<MissionResponse>> readCategoryMission(@PathVariable Long categoryId){
+        List<MissionResponse> missionResponseList = this.missionService.readCategoryMissions(categoryId);
+        return new NolzaApiResponse<>(missionResponseList);
+    }
 }

@@ -14,4 +14,7 @@ import java.util.List;
  */
 @Repository
 public interface CategoryMissionRepository extends JpaRepository<CategoryMission, CategoryMissionId> {
+
+    @Query("SELECT cm FROM CategoryMission cm WHERE cm.categoryId = :categoryId")
+    List<CategoryMission> findByCategoryId(@Param("categoryId")Long categoryId);
 }
