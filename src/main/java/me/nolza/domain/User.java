@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by gain on 2017. 8. 12..
@@ -34,4 +36,15 @@ public class User extends BaseEntity implements Serializable {
 
     @Column(name = "DURATION")
     private String duration;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
+
+    public void addRoles(Role role){
+        if(roles==null){
+            roles = new ArrayList<>();
+        }
+        this.roles.add(role);
+    }
 }
