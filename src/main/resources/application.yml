@@ -69,3 +69,6 @@ spring.profiles: local-test
 ---
 #spring.data.elasticsearch.cluster-nodes : localhost:9300
 #spring.data.elasticsearch.properties.transport.tcp.connect_timeout : 120s
+
+---
+spring.session.store-type: none

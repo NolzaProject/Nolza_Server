@@ -25,12 +25,21 @@ public class Mission extends BaseEntity implements Serializable {
     @Column(name = "TITLE")
     private String title;
 
-    @Column(name = "KEYWORD")
-    private String keyword;
-
-    @Column(name = "DESCRIPTION")
-    private String description;
+    @Column(name = "LOCATION")
+    private String location;
 
     @Column(name = "DIFFICULTY")
     private String difficulty;
+
+    @Column(name = "BUSINESS_HOUR")
+    private String businessHour;
+
+    @Column(name = "PHONE_NUMBER")
+    private String phoneNumber;
+
+    @Column(name = "CHARGE")
+    private String charge;
+
+    @Column(name = "DESCRIPTION")
+    private String description;
 }

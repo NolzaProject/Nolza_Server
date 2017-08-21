@@ -13,6 +13,6 @@ public interface MissionService {
      void createMission(MissionRequest missionRequest);
      void deleteMission(Long Id);
      Mission updateMission(MissionRequest missionRequest);
-     List<MissionResponse> getMissionList();
+     List<MissionResponse> getMissions();
      List<MissionResponse> readCategoryMissions(Long categoryId);
 }

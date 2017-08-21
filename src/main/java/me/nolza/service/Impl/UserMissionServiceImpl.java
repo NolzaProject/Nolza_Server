@@ -23,6 +23,7 @@ public class UserMissionServiceImpl implements UserMissionService {
     @Autowired
     private UserMissionRepository userMissionRepository;
 
+    //TODO 미션 완료한 시간 넣어야 함
     @Override
     public void createUserMission(UserMissionRequset userMissionRequset) {
         UserMission userMission = new UserMission();
@@ -37,18 +38,18 @@ public class UserMissionServiceImpl implements UserMissionService {
     }
 
     @Override
-    public List<UserMissionResponse> getUserMissionList(Long userId) {
-        List<UserMission> userMissionList = this.userMissionRepository.findByUserId(userId);
-        List<UserMissionResponse> userMissionResponseList = new ArrayList<>();
+    public List<UserMissionResponse> getUserMissions(Long userId) {
+        List<UserMission> userMissions = this.userMissionRepository.findByUserId(userId);
+        List<UserMissionResponse> userMissionResponses = new ArrayList<>();
 
-        if(userMissionList == null){
+        if(userMissions.isEmpty()){
             throw new UserMissionNotFoundException("미션을 먼저 수행해주세요!");
         }else{
-            for (UserMission userMission : userMissionList){
-                userMissionResponseList.add(UserMissionResponse.of(userMission));
+            for (UserMission userMission : userMissions){
+                userMissionResponses.add(UserMissionResponse.of(userMission));
             }
 
-            return userMissionResponseList;
+            return userMissionResponses;
         }
     }
 }

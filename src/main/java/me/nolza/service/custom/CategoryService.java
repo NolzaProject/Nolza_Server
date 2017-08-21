@@ -9,7 +9,7 @@ import java.util.List;
  * Created by gain on 2017. 8. 7..
  */
 public interface CategoryService  {
-    List<CategoryResponse> getCategoryList();
+    List<CategoryResponse> getCategories();
     void createCategory(CategoryRequest categoryRequest);
     void deleteCategory(Long id);
 }

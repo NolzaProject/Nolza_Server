@@ -14,7 +14,7 @@ import java.util.List;
  * Created by gain on 2017. 8. 12..
  */
 @RestController
-@RequestMapping(value = "api/v1/um")
+@RequestMapping(value = "/api/v1/userMissions")
 public class UserMissoinCotroller {
 
     @Autowired
@@ -26,9 +26,9 @@ public class UserMissoinCotroller {
         return new NolzaApiResponse(NolzaApiResponse.OK);
     }
 
-    @GetMapping("/list/{userId}")
-    public NolzaApiResponse<List<UserMissionResponse>> getUserMissionList(@PathVariable Long userId){
-        List<UserMissionResponse> userMissionResponseList = this.userMissionService.getUserMissionList(userId);
-        return new NolzaApiResponse<>(userMissionResponseList);
+    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
+    public NolzaApiResponse<List<UserMissionResponse>> getUserMissions(@PathVariable Long userId){
+        List<UserMissionResponse> userMissionResponses = this.userMissionService.getUserMissions(userId);
+        return new NolzaApiResponse<>(userMissionResponses);
     }
 }

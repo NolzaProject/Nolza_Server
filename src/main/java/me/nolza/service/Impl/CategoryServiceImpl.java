@@ -23,20 +23,20 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Override
-    public List<CategoryResponse> getCategoryList(){
-        List<Category> categorieList =  this.categoryRepository.findAll();
-        List<CategoryResponse> categoryResponseList = new ArrayList<>();
+    public List<CategoryResponse> getCategories(){
+        List<Category> categories =  this.categoryRepository.findAll();
+        List<CategoryResponse> categoryResponses = new ArrayList<>();
 
-        for(Category category : categorieList){
+        for(Category category : categories){
             CategoryResponse categoryResponse = new CategoryResponse();
 
             categoryResponse.setId(category.getId());
             categoryResponse.setTitle(category.getTitle());
             categoryResponse.setDescription(category.getDescription());
 
-            categoryResponseList.add(categoryResponse);
+            categoryResponses.add(categoryResponse);
         }
-        return categoryResponseList;
+        return categoryResponses;
     }
 
     @Override
