@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by gain on 2017. 8. 7..
  */
 @RestController
-@RequestMapping(value = "/api/v1/cm")
+@RequestMapping(value = "/api/v1/categoryMissions")
 public class CategoryMissionController {
 
     @Autowired
@@ -23,7 +23,7 @@ public class CategoryMissionController {
         return new NolzaApiResponse(NolzaApiResponse.OK);
     }
 
-    @PostMapping("/delete")
+    @RequestMapping(method = RequestMethod.DELETE)
     public NolzaApiResponse deleteCategoryMission(@RequestBody CategoryMissionRequest categoryMissionRequest){
         this.categoryMissionService.deleteCategoryMission(categoryMissionRequest);
         return new NolzaApiResponse(NolzaApiResponse.OK);

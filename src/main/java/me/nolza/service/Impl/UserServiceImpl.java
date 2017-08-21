@@ -43,7 +43,6 @@ public class UserServiceImpl implements UserService{
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     //TODO 현재 로그인 된 유저 아이디 찾는 기능 구현
-    //TODO 어드민 계정 생성하는 기능..여기에 해야 할지
 
     @Override
     public void createUser(UserRequest userRequest) {

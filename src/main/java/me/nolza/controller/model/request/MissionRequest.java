@@ -17,13 +17,18 @@ public class MissionRequest {
     @NotNull
     private String title;
 
-    @NotNull
     private String location;
 
     @NotNull
-    private String description;
+    private String difficulty;
+
+    private String businessHour;
+
+    private String phoneNumber;
+
+    private String charge;
 
     @NotNull
-    private String level;
+    private String description;
 }
 

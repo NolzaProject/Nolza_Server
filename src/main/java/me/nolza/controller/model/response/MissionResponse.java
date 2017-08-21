@@ -12,6 +12,9 @@ public class MissionResponse {
     private Long Id;
     private String title;
     private String location;
-    private String description;
     private String difficulty;
+    private String businessHour;
+    private String phoneNumber;
+    private String charge;
+    private String description;
 }

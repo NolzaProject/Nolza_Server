@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface UserMissionService {
     void createUserMission(UserMissionRequset userMissionRequset);
-    List<UserMissionResponse> getUserMissionList(Long userId);
+    List<UserMissionResponse> getUserMissions(Long userId);
 }

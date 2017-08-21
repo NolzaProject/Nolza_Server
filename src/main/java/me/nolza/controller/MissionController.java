@@ -14,45 +14,39 @@ import java.util.List;
  * Created by gain on 2017. 8. 7..
  */
 @RestController
-@RequestMapping(value = "/api/v1/mission")
+@RequestMapping(value = "/api/v1/missions")
 public class MissionController {
 
     @Autowired
     private MissionService missionService;
 
-    @PostMapping()
+    @RequestMapping(method = RequestMethod.POST)
     public NolzaApiResponse createMission(@Valid @RequestBody MissionRequest missionRequest){
         this.missionService.createMission(missionRequest);
         return new NolzaApiResponse(NolzaApiResponse.OK);
     }
 
-    @GetMapping("/delete/{Id}")
+    @RequestMapping(method = RequestMethod.DELETE)
     public NolzaApiResponse deleteMission(@PathVariable Long Id){
         this.missionService.deleteMission(Id);
         return new NolzaApiResponse(NolzaApiResponse.OK);
     }
 
-    @PostMapping("/update")
+    @RequestMapping(method = RequestMethod.PUT)
     public NolzaApiResponse updateMission(@Valid @RequestBody MissionRequest missionRequest){
         this.missionService.updateMission(missionRequest);
         return new NolzaApiResponse(NolzaApiResponse.OK);
     }
 
-    @GetMapping("/list")
-    public NolzaApiResponse<List<MissionResponse>> getMissionList(){
-        List<MissionResponse> missionResponseList = this.missionService.getMissionList();
-        return new NolzaApiResponse<>(missionResponseList);
+    @RequestMapping(method = RequestMethod.GET)
+    public NolzaApiResponse<List<MissionResponse>> getMissions(){
+        List<MissionResponse> missionResponses = this.missionService.getMissions();
+        return new NolzaApiResponse<>(missionResponses);
     }
 
-    @GetMapping("/categoryId/{categoryId}")
+    @RequestMapping(method = RequestMethod.GET, value = "/{categoryId}")
     public NolzaApiResponse<List<MissionResponse>> readCategoryMission(@PathVariable Long categoryId){
-        List<MissionResponse> missionResponseList = this.missionService.readCategoryMissions(categoryId);
-        return new NolzaApiResponse<>(missionResponseList);
-    }
-
-    @GetMapping("/keywordId/{keywordId}")
-    public NolzaApiResponse<List<MissionResponse>> searchMissions(@PathVariable Long keywordId){
-        List<MissionResponse> missionResponseList = this.missionService.searchMissions(keywordId);
-        return new NolzaApiResponse<>(missionResponseList);
+        List<MissionResponse> missionResponses = this.missionService.readCategoryMissions(categoryId);
+        return new NolzaApiResponse<>(missionResponses);
     }
 }

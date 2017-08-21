@@ -26,5 +26,4 @@ public class CategoryMissionId implements Serializable {
     public int hashCode() {
         return categoryId.intValue() + missionId.intValue();
     }
-
 }

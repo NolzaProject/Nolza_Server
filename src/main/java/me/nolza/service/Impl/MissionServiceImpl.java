@@ -1,14 +1,11 @@
 package me.nolza.service.Impl;
 
 import lombok.extern.slf4j.Slf4j;
-import me.nolza.controller.exception.MissionNotFoundException;
 import me.nolza.controller.model.request.MissionRequest;
 import me.nolza.controller.model.response.MissionResponse;
 import me.nolza.domain.CategoryMission;
 import me.nolza.domain.Mission;
-import me.nolza.domain.MissionKeyword;
 import me.nolza.repository.CategoryMissionRepository;
-import me.nolza.repository.MissionKeywordRepository;
 import me.nolza.repository.MissionRepository;
 import me.nolza.service.custom.MissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,16 +27,16 @@ public class MissionServiceImpl implements MissionService {
     @Autowired
     private CategoryMissionRepository categoryMissionRepository;
 
-    @Autowired
-    private MissionKeywordRepository missionKeywordRepository;
-
     @Override
     public void createMission(MissionRequest missionRequest){
         Mission mission = new Mission();
         mission.setTitle(missionRequest.getTitle());
-        mission.setDescription(missionRequest.getDescription());
         mission.setLocation(missionRequest.getLocation());
-        mission.setDifficulty(missionRequest.getLevel());
+        mission.setDifficulty(missionRequest.getDifficulty());
+        mission.setBusinessHour(missionRequest.getBusinessHour());
+        mission.setPhoneNumber(missionRequest.getPhoneNumber());
+        mission.setCharge(missionRequest.getCharge());
+        mission.setDescription(missionRequest.getDescription());
         this.missionRepository.save(mission);
     }
 
@@ -54,9 +51,12 @@ public class MissionServiceImpl implements MissionService {
         Mission mission = new Mission();
         mission.setId(missionTmp.getId());
         mission.setTitle(missionRequest.getTitle());
-        mission.setDescription(missionRequest.getDescription());
         mission.setLocation(missionRequest.getLocation());
-        mission.setDifficulty(missionRequest.getLevel());
+        mission.setDifficulty(missionRequest.getDifficulty());
+        mission.setBusinessHour(missionRequest.getBusinessHour());
+        mission.setPhoneNumber(missionRequest.getPhoneNumber());
+        mission.setCharge(missionRequest.getCharge());
+        mission.setDescription(missionRequest.getDescription());
         mission.setCreatedDate(missionTmp.getCreatedDate());
         mission.setLastModifiedDate(missionTmp.getLastModifiedDate());
         this.missionRepository.save(mission);
@@ -65,32 +65,32 @@ public class MissionServiceImpl implements MissionService {
     }
 
     @Override
-    public List<MissionResponse> getMissionList(){
-        List<Mission> missionList = this.missionRepository.findAll();
-        List<MissionResponse> missionResponseList = new ArrayList<>();
+    public List<MissionResponse> getMissions(){
+        List<Mission> missions = this.missionRepository.findAll();
+        List<MissionResponse> missionResponses = new ArrayList<>();
 
-        for(Mission mission : missionList){
+        for(Mission mission : missions){
             MissionResponse missionResponse = new MissionResponse();
             missionResponse.setId(mission.getId());
             missionResponse.setTitle(mission.getTitle());
             missionResponse.setLocation(mission.getLocation());
-            missionResponse.setDescription(mission.getDescription());
             missionResponse.setDifficulty(mission.getDifficulty());
+            missionResponse.setBusinessHour(mission.getBusinessHour());
+            missionResponse.setPhoneNumber(mission.getPhoneNumber());
+            missionResponse.setCharge(mission.getCharge());
 
-            missionResponseList.add(missionResponse);
+            missionResponses.add(missionResponse);
         }
-        return missionResponseList;
+        return missionResponses;
     }
 
     @Override
     public List<MissionResponse> readCategoryMissions(Long categoryId){
         List<CategoryMission> categoryMissions =  this.categoryMissionRepository.findByCategoryId(categoryId);
-        List<MissionResponse> missionResponseList = new ArrayList<>();
+        List<MissionResponse> missionResponses = new ArrayList<>();
 
-        System.out.println(categoryId);
-        System.out.println(categoryMissions);
 
-        for(CategoryMission categoryMission : categoryMissions){
+        for (CategoryMission categoryMission : categoryMissions) {
             Mission mission = this.missionRepository.findOne(categoryMission.getMissionId());
             MissionResponse missionResponse = new MissionResponse();
             missionResponse.setId(mission.getId());
@@ -98,36 +98,14 @@ public class MissionServiceImpl implements MissionService {
             missionResponse.setDescription(mission.getDescription());
             missionResponse.setLocation(mission.getLocation());
             missionResponse.setDifficulty(mission.getDifficulty());
+            missionResponse.setBusinessHour(mission.getBusinessHour());
+            missionResponse.setPhoneNumber(mission.getPhoneNumber());
+            missionResponse.setCharge(mission.getCharge());
 
-            missionResponseList.add(missionResponse);
+
+            missionResponses.add(missionResponse);
         }
 
-        return missionResponseList;
-    }
-
-    @Override
-    public List<MissionResponse> searchMissions(Long keywordId){
-        List<MissionKeyword> missionKeywords = this.missionKeywordRepository.findByKeywordId(keywordId);
-
-        System.out.println(missionKeywords);
-
-        if(missionKeywords.isEmpty()){
-            throw new MissionNotFoundException("검색 결과가 없습니다.");
-        }else {
-            List<MissionResponse> missionResponseList = new ArrayList<>();
-
-            for(MissionKeyword missionKeyword : missionKeywords){
-                Mission mission = this.missionRepository.findOne(missionKeyword.getMissionId());
-                MissionResponse missionResponse = new MissionResponse();
-                missionResponse.setId(mission.getId());
-                missionResponse.setTitle(mission.getTitle());
-                missionResponse.setDescription(mission.getDescription());
-                missionResponse.setLocation(mission.getLocation());
-                missionResponse.setDifficulty(mission.getDifficulty());
-
-                missionResponseList.add(missionResponse);
-            }
-            return missionResponseList;
-        }
+        return missionResponses;
     }
 }

@@ -13,21 +13,20 @@ import javax.validation.Valid;
  * Created by gain on 2017. 8. 14..
  */
 @RestController
-@RequestMapping("api/v1/user")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping()
+    @RequestMapping(method = RequestMethod.POST)
     public NolzaApiResponse createUser(@Valid @RequestBody UserRequest userRequest){
         this.userService.createUser(userRequest);
         return new NolzaApiResponse(NolzaApiResponse.OK);
     }
 
-    @PostMapping("/login")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public NolzaApiResponse<String> loginUser(@Valid @RequestBody UserRequest userRequest, HttpSession session){
-        System.out.println("-----------------------email" + userRequest.getEmail());
         String token = this.userService.loginUser(userRequest, session);
         return new NolzaApiResponse<>(token);
     }
