@@ -15,4 +15,5 @@ public interface MissionService {
      Mission updateMission(MissionRequest missionRequest);
      List<MissionResponse> getMissionList();
      List<MissionResponse> readCategoryMissions(Long categoryId);
+     List<MissionResponse> searchMissions(Long keywordId);
 }

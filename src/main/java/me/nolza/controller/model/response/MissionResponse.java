@@ -11,7 +11,7 @@ import lombok.Setter;
 public class MissionResponse {
     private Long Id;
     private String title;
-    private String keyword;
+    private String location;
     private String description;
     private String difficulty;
 }

@@ -1,11 +1,14 @@
 package me.nolza.service.Impl;
 
 import lombok.extern.slf4j.Slf4j;
+import me.nolza.controller.exception.MissionNotFoundException;
 import me.nolza.controller.model.request.MissionRequest;
 import me.nolza.controller.model.response.MissionResponse;
 import me.nolza.domain.CategoryMission;
 import me.nolza.domain.Mission;
+import me.nolza.domain.MissionKeyword;
 import me.nolza.repository.CategoryMissionRepository;
+import me.nolza.repository.MissionKeywordRepository;
 import me.nolza.repository.MissionRepository;
 import me.nolza.service.custom.MissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +30,15 @@ public class MissionServiceImpl implements MissionService {
     @Autowired
     private CategoryMissionRepository categoryMissionRepository;
 
+    @Autowired
+    private MissionKeywordRepository missionKeywordRepository;
+
     @Override
     public void createMission(MissionRequest missionRequest){
         Mission mission = new Mission();
         mission.setTitle(missionRequest.getTitle());
         mission.setDescription(missionRequest.getDescription());
-        mission.setKeyword(missionRequest.getKeyword());
+        mission.setLocation(missionRequest.getLocation());
         mission.setDifficulty(missionRequest.getLevel());
         this.missionRepository.save(mission);
     }
@@ -49,7 +55,7 @@ public class MissionServiceImpl implements MissionService {
         mission.setId(missionTmp.getId());
         mission.setTitle(missionRequest.getTitle());
         mission.setDescription(missionRequest.getDescription());
-        mission.setKeyword(missionRequest.getKeyword());
+        mission.setLocation(missionRequest.getLocation());
         mission.setDifficulty(missionRequest.getLevel());
         mission.setCreatedDate(missionTmp.getCreatedDate());
         mission.setLastModifiedDate(missionTmp.getLastModifiedDate());
@@ -67,7 +73,7 @@ public class MissionServiceImpl implements MissionService {
             MissionResponse missionResponse = new MissionResponse();
             missionResponse.setId(mission.getId());
             missionResponse.setTitle(mission.getTitle());
-            missionResponse.setKeyword(mission.getKeyword());
+            missionResponse.setLocation(mission.getLocation());
             missionResponse.setDescription(mission.getDescription());
             missionResponse.setDifficulty(mission.getDifficulty());
 
@@ -90,12 +96,38 @@ public class MissionServiceImpl implements MissionService {
             missionResponse.setId(mission.getId());
             missionResponse.setTitle(mission.getTitle());
             missionResponse.setDescription(mission.getDescription());
-            missionResponse.setKeyword(mission.getKeyword());
+            missionResponse.setLocation(mission.getLocation());
             missionResponse.setDifficulty(mission.getDifficulty());
 
             missionResponseList.add(missionResponse);
         }
 
         return missionResponseList;
+    }
+
+    @Override
+    public List<MissionResponse> searchMissions(Long keywordId){
+        List<MissionKeyword> missionKeywords = this.missionKeywordRepository.findByKeywordId(keywordId);
+
+        System.out.println(missionKeywords);
+
+        if(missionKeywords.isEmpty()){
+            throw new MissionNotFoundException("검색 결과가 없습니다.");
+        }else {
+            List<MissionResponse> missionResponseList = new ArrayList<>();
+
+            for(MissionKeyword missionKeyword : missionKeywords){
+                Mission mission = this.missionRepository.findOne(missionKeyword.getMissionId());
+                MissionResponse missionResponse = new MissionResponse();
+                missionResponse.setId(mission.getId());
+                missionResponse.setTitle(mission.getTitle());
+                missionResponse.setDescription(mission.getDescription());
+                missionResponse.setLocation(mission.getLocation());
+                missionResponse.setDifficulty(mission.getDifficulty());
+
+                missionResponseList.add(missionResponse);
+            }
+            return missionResponseList;
+        }
     }
 }

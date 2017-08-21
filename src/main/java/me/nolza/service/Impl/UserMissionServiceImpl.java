@@ -41,7 +41,7 @@ public class UserMissionServiceImpl implements UserMissionService {
         List<UserMission> userMissionList = this.userMissionRepository.findByUserId(userId);
         List<UserMissionResponse> userMissionResponseList = new ArrayList<>();
 
-        if(userMissionList == null){
+        if(userMissionList.isEmpty()){
             throw new UserMissionNotFoundException("미션을 먼저 수행해주세요!");
         }else{
             for (UserMission userMission : userMissionList){

@@ -18,7 +18,7 @@ public class MissionRequest {
     private String title;
 
     @NotNull
-    private String keyword;
+    private String location;
 
     @NotNull
     private String description;

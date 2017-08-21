@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@Table(name = "USER")
+@Table(name = "NOLZA_USER")
 public class User extends BaseEntity implements Serializable {
 
 
