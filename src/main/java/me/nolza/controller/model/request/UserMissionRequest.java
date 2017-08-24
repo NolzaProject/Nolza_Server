@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @NoArgsConstructor
-public class UserMissionRequset {
+public class UserMissionRequest {
 
     private Long Id;
 
@@ -24,5 +24,9 @@ public class UserMissionRequset {
     private String imageUri;
 
     private String location;
+
+    private Boolean Iscompleted;
+
+    private Boolean Ischecked;
 
 }

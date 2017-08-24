@@ -31,4 +31,5 @@ public class UserCategoryPreference extends BaseEntity implements Serializable {
 
     @Column(name = "LAST_COMPLETED_TIME")
     private String lastCompletedTime;
+
 }
