@@ -109,5 +109,27 @@ public class MissionServiceImpl implements MissionService {
         return missionResponses;
     }
 
+    @Override
+    public List<MissionResponse> searchMissions(String keyword) {
+        List<Mission> missions = this.missionRepository.findByDescriptionContaining(keyword);
+        List<MissionResponse> missionResponses = new ArrayList<>();
+
+        for(Mission mission : missions){
+            MissionResponse missionResponse = new MissionResponse();
+            missionResponse.setId(mission.getId());
+            missionResponse.setTitle(mission.getTitle());
+            missionResponse.setDescription(mission.getDescription());
+            missionResponse.setLocation(mission.getLocation());
+            missionResponse.setDifficulty(mission.getDifficulty());
+            missionResponse.setBusinessHour(mission.getBusinessHour());
+            missionResponse.setPhoneNumber(mission.getPhoneNumber());
+            missionResponse.setCharge(mission.getCharge());
+
+
+            missionResponses.add(missionResponse);
+        }
+        return missionResponses;
+    }
+
 
 }

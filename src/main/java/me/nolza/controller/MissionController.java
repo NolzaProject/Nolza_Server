@@ -44,9 +44,15 @@ public class MissionController {
         return new NolzaApiResponse<>(missionResponses);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{categoryId}")
-    public NolzaApiResponse<List<MissionResponse>> readCategoryMission(@PathVariable Long categoryId){
+    @RequestMapping(method = RequestMethod.GET, value = "/categoryId/{categoryId}")
+    public NolzaApiResponse<List<MissionResponse>> readCategoryMissions(@PathVariable Long categoryId){
         List<MissionResponse> missionResponses = this.missionService.readCategoryMissions(categoryId);
+        return new NolzaApiResponse<>(missionResponses);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/keyword/{keyword}")
+    public NolzaApiResponse<List<MissionResponse>> searchMissions(@PathVariable String keyword){
+        List<MissionResponse> missionResponses = this.missionService.searchMissions(keyword);
         return new NolzaApiResponse<>(missionResponses);
     }
 }
