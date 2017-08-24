@@ -1,6 +1,7 @@
 package me.nolza.service.Impl;
 
 import lombok.extern.slf4j.Slf4j;
+import me.nolza.controller.exception.MissionNotFoundException;
 import me.nolza.controller.model.request.MissionRequest;
 import me.nolza.controller.model.response.MissionResponse;
 import me.nolza.domain.CategoryMission;
@@ -114,21 +115,25 @@ public class MissionServiceImpl implements MissionService {
         List<Mission> missions = this.missionRepository.findByDescriptionContaining(keyword);
         List<MissionResponse> missionResponses = new ArrayList<>();
 
-        for(Mission mission : missions){
-            MissionResponse missionResponse = new MissionResponse();
-            missionResponse.setId(mission.getId());
-            missionResponse.setTitle(mission.getTitle());
-            missionResponse.setDescription(mission.getDescription());
-            missionResponse.setLocation(mission.getLocation());
-            missionResponse.setDifficulty(mission.getDifficulty());
-            missionResponse.setBusinessHour(mission.getBusinessHour());
-            missionResponse.setPhoneNumber(mission.getPhoneNumber());
-            missionResponse.setCharge(mission.getCharge());
+        if(missions.size() == 0){
+            throw new MissionNotFoundException("검색 결과가 없습니다.");
+        }else {
+            for(Mission mission : missions){
+                MissionResponse missionResponse = new MissionResponse();
+                missionResponse.setId(mission.getId());
+                missionResponse.setTitle(mission.getTitle());
+                missionResponse.setDescription(mission.getDescription());
+                missionResponse.setLocation(mission.getLocation());
+                missionResponse.setDifficulty(mission.getDifficulty());
+                missionResponse.setBusinessHour(mission.getBusinessHour());
+                missionResponse.setPhoneNumber(mission.getPhoneNumber());
+                missionResponse.setCharge(mission.getCharge());
 
 
-            missionResponses.add(missionResponse);
+                missionResponses.add(missionResponse);
+            }
+            return missionResponses;
         }
-        return missionResponses;
     }
 
 
