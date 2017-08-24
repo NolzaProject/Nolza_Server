@@ -68,7 +68,6 @@ public class UserServiceImpl implements UserService{
             e.printStackTrace();
         }
         session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
-        System.out.println("sessionId : " +  session.getId());
         return session.getId();
     }
 

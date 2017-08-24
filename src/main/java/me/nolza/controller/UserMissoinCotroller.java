@@ -1,6 +1,6 @@
 package me.nolza.controller;
 
-import me.nolza.controller.model.request.UserMissionRequset;
+import me.nolza.controller.model.request.UserMissionRequest;
 import me.nolza.controller.model.response.NolzaApiResponse;
 import me.nolza.controller.model.response.UserMissionResponse;
 import me.nolza.service.custom.UserMissionService;
@@ -14,21 +14,34 @@ import java.util.List;
  * Created by gain on 2017. 8. 12..
  */
 @RestController
-@RequestMapping(value = "/api/v1/userMissions")
+@RequestMapping(value = "/api/v1/usermissions")
 public class UserMissoinCotroller {
 
     @Autowired
     private UserMissionService userMissionService;
 
-    @PostMapping()
-    public NolzaApiResponse createUserMission(@Valid @RequestBody UserMissionRequset userMissionRequset){
-        this.userMissionService.createUserMission(userMissionRequset);
+    @RequestMapping(method = RequestMethod.POST)
+    public NolzaApiResponse createUserMission(@Valid @RequestBody UserMissionRequest userMissionRequest){
+        this.userMissionService.createUserMission(userMissionRequest);
         return new NolzaApiResponse(NolzaApiResponse.OK);
     }
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
-    public NolzaApiResponse<List<UserMissionResponse>> getUserMissions(@PathVariable Long userId){
-        List<UserMissionResponse> userMissionResponses = this.userMissionService.getUserMissions(userId);
+    public NolzaApiResponse<List<UserMissionResponse>> readUserMissions(@PathVariable Long userId){
+        List<UserMissionResponse> userMissionResponses = this.userMissionService.readUserMissions(userId);
         return new NolzaApiResponse<>(userMissionResponses);
     }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public NolzaApiResponse updateUserMission(@RequestBody UserMissionRequest userMissionRequest){
+        this.userMissionService.updateUserMission(userMissionRequest);
+        return new NolzaApiResponse(NolzaApiResponse.OK);
+    }
+
+    @RequestMapping(value = "/checked", method = RequestMethod.PUT)
+    public NolzaApiResponse checkedUserMissions(@RequestBody List<UserMissionRequest> userMissionRequests){
+        this.userMissionService.checkedUserMissions(userMissionRequests);
+        return new NolzaApiResponse(NolzaApiResponse.OK);
+    }
+
 }
