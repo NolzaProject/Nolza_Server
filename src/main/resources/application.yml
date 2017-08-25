@@ -72,3 +72,7 @@ spring.profiles: local-test
 
 ---
 spring.session.store-type: none
+
+---
+aws.access.key : AKIAIAFLFGVB26H7IPWA
+aws.secret.key : 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
