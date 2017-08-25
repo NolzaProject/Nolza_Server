@@ -1,5 +1,6 @@
 package me.nolza.controller;
 
+import io.swagger.annotations.Api;
 import me.nolza.controller.model.request.UserRequest;
 import me.nolza.controller.model.response.NolzaApiResponse;
 import me.nolza.service.custom.UserService;
@@ -12,6 +13,7 @@ import javax.validation.Valid;
 /**
  * Created by gain on 2017. 8. 14..
  */
+@Api(description = "사용자 API")
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {

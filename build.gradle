@@ -27,8 +27,8 @@ dependencies {
 
 
 	/* swagger */
-	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.4.0'
-	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.4.0'
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.5.0'
+	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.5.0'
 
 	/* boot 서버 설정 */
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
@@ -39,10 +39,16 @@ dependencies {
 
 	/* session */
 	compile ('org.springframework.session:spring-session')
-	
-	/*swagger*/
-	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.4.0'
-	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.4.0'
+
+	compile("net.minidev:json-smart:2.2.1")
+
+	/* aws */
+	// https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk
+	compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.113'
+	// https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3
+	compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.113'
+	// https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-core
+	compile group: 'com.amazonaws', name: 'aws-java-sdk-core', version: '1.11.113'
 
 	compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 	compile("joda-time:joda-time")

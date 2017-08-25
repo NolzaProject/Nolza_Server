@@ -72,3 +72,9 @@ spring.profiles: local-test
 
 ---
 spring.session.store-type: none
+
+---
+iam.ak : AKIAJIMKZXWO33RWXBCA
+iam.sk : R0cGN+pA6Es61ODDGS4o+RKAjvDAOaeP19RsjUGO
+---
+aws.bucket : nexters-nolza
