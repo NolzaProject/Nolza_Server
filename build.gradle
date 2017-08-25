@@ -39,6 +39,10 @@ dependencies {
 
 	/* session */
 	compile ('org.springframework.session:spring-session')
+	
+	/*swagger*/
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.4.0'
+	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.4.0'
 
 	compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 	compile("joda-time:joda-time")
