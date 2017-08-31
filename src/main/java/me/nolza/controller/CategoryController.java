@@ -2,7 +2,6 @@ package me.nolza.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.HttpMethod;
 import me.nolza.controller.model.request.CategoryRequest;
 import me.nolza.controller.model.response.CategoryResponse;
 import me.nolza.controller.model.response.NolzaApiResponse;

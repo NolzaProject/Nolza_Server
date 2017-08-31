@@ -6,6 +6,7 @@ import me.nolza.controller.model.request.MissionRequest;
 import me.nolza.controller.model.response.MissionResponse;
 import me.nolza.controller.model.response.NolzaApiResponse;
 import me.nolza.service.custom.MissionService;
+import me.nolza.service.custom.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,11 +24,16 @@ public class MissionController {
     @Autowired
     private MissionService missionService;
 
+    @Autowired
+    private S3Service s3Service;
+
     @ApiOperation(value = "", notes = "미션을 생성합니다.")
     @RequestMapping(method = RequestMethod.POST)
-    public NolzaApiResponse createMission(@Valid @RequestBody MissionRequest missionRequest){
+    public NolzaApiResponse createMission(MissionRequest missionRequest){
         this.missionService.createMission(missionRequest);
-        return new NolzaApiResponse(NolzaApiResponse.OK);
+        s3Service.createObject(missionRequest.getImage());
+        String imageUrl = s3Service.findObject(missionRequest.getImage().getOriginalFilename());
+        return new NolzaApiResponse(imageUrl);
     }
 
     @ApiOperation(value = "", notes = "미션을 삭제합니다.")

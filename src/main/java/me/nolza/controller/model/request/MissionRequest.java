@@ -2,6 +2,7 @@ package me.nolza.controller.model.request;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 
@@ -30,5 +31,8 @@ public class MissionRequest {
 
     @NotNull
     private String description;
+
+    @NotNull
+    private MultipartFile image;
 }
 

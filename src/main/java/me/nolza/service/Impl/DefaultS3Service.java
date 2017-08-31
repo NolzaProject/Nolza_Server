@@ -46,19 +46,26 @@ public class DefaultS3Service implements S3Service {
     }
 
     @Override
-    public void createObject(File file) {
+    public void createObject(MultipartFile multipartFile) {
+        ObjectMetadata om = new ObjectMetadata();
+        om.setContentEncoding("UTF-8");
+        om.setContentLength(multipartFile.getSize());
+        om.setContentType(multipartFile.getContentType());
         StringBuilder sb = new StringBuilder();
-        sb.append("mission/").append(file.getName());
-
-        this.amazonS3.putObject(new PutObjectRequest(bucket,sb.toString(),
-                file).withCannedAcl(CannedAccessControlList.PublicRead));
+        sb.append("mission/").append(multipartFile.getOriginalFilename());
+        try {
+            this.amazonS3.putObject(new PutObjectRequest(bucket,sb.toString(),
+                    multipartFile.getInputStream(),om).withCannedAcl(CannedAccessControlList.PublicRead));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public void createObjects(String location, MultipartFile[] files) {
         Arrays.stream(files).forEach(file -> {
-            createObject(multipartToFile(file));
+            createObject(file);
         });
     }
 
@@ -66,7 +73,7 @@ public class DefaultS3Service implements S3Service {
     @Override
     public String findObject(String fileName) {
         S3Object s3 = this.amazonS3.getObject(bucket, "mission/" + fileName);
-        return ROOT + "/" + s3.getKey();
+        return ROOT + s3.getKey();
     }
 
     @Override
