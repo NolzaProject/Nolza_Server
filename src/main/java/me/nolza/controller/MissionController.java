@@ -9,7 +9,6 @@ import me.nolza.service.custom.MissionService;
 import me.nolza.service.custom.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -30,10 +29,11 @@ public class MissionController {
 
     @ApiOperation(value = "", notes = "미션을 생성합니다.")
     @RequestMapping(method = RequestMethod.POST)
-    public NolzaApiResponse createMission(@Valid @RequestBody MissionRequest missionRequest, MultipartFile multipartFile){
+    public NolzaApiResponse createMission(MissionRequest missionRequest){
         this.missionService.createMission(missionRequest);
-        s3Service.createObject(multipartFile);
-        return new NolzaApiResponse(NolzaApiResponse.OK);
+        s3Service.createObject(missionRequest.getImage());
+        String imageUrl = s3Service.findObject(missionRequest.getImage().getOriginalFilename());
+        return new NolzaApiResponse(imageUrl);
     }
 
     @ApiOperation(value = "", notes = "미션을 삭제합니다.")
