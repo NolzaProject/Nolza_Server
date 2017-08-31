@@ -8,12 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.File;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.core.IsNull.notNullValue;
-
 /**
  * Created by Manki Kim on 2017-08-25.
  */
@@ -27,8 +21,10 @@ public class S3ServiceTest {
 
     @Test
     public void createObjectTest() {
+        /*
         File file = new File("C:\\Users\\USER\\Pictures\\fb.png");
         s3Service.createObject(file);
         assertThat(s3Service.findObject("fb.png"), is(notNullValue()));
+        */
     }
 }

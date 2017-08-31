@@ -46,7 +46,8 @@ public class DefaultS3Service implements S3Service {
     }
 
     @Override
-    public void createObject(File file) {
+    public void createObject(MultipartFile multipartFile) {
+        File file = multipartToFile(multipartFile);
         StringBuilder sb = new StringBuilder();
         sb.append("mission/").append(file.getName());
 
@@ -58,7 +59,7 @@ public class DefaultS3Service implements S3Service {
     @Override
     public void createObjects(String location, MultipartFile[] files) {
         Arrays.stream(files).forEach(file -> {
-            createObject(multipartToFile(file));
+            createObject(file);
         });
     }
 
