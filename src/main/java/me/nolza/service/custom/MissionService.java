@@ -10,7 +10,7 @@ import java.util.List;
  * Created by gain on 2017. 8. 7..
  */
 public interface MissionService {
-     void createMission(MissionRequest missionRequest);
+     void createMission(MissionRequest missionRequest, String imageUrl);
      void deleteMission(Long Id);
      Mission updateMission(MissionRequest missionRequest);
      List<MissionResponse> getMissions();

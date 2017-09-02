@@ -30,14 +30,14 @@ public class MissionController {
     @ApiOperation(value = "", notes = "미션을 생성합니다.")
     @RequestMapping(method = RequestMethod.POST)
     public NolzaApiResponse createMission(MissionRequest missionRequest){
-        this.missionService.createMission(missionRequest);
         s3Service.createObject(missionRequest.getImage());
         String imageUrl = s3Service.findObject(missionRequest.getImage().getOriginalFilename());
-        return new NolzaApiResponse(imageUrl);
+        this.missionService.createMission(missionRequest, imageUrl);
+        return new NolzaApiResponse(NolzaApiResponse.OK);
     }
 
     @ApiOperation(value = "", notes = "미션을 삭제합니다.")
-    @RequestMapping(method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{Id}", method = RequestMethod.DELETE)
     public NolzaApiResponse deleteMission(@PathVariable Long Id){
         this.missionService.deleteMission(Id);
         return new NolzaApiResponse(NolzaApiResponse.OK);

@@ -28,7 +28,7 @@ public class MissionServiceImpl implements MissionService {
     private CategoryMissionRepository categoryMissionRepository;
 
     @Override
-    public void createMission(MissionRequest missionRequest){
+    public void createMission(MissionRequest missionRequest, String imageUrl){
         Mission mission = new Mission();
         mission.setTitle(missionRequest.getTitle());
         mission.setLocation(missionRequest.getLocation());
@@ -37,6 +37,7 @@ public class MissionServiceImpl implements MissionService {
         mission.setPhoneNumber(missionRequest.getPhoneNumber());
         mission.setCharge(missionRequest.getCharge());
         mission.setDescription(missionRequest.getDescription());
+        mission.setImageUrl(imageUrl);
         this.missionRepository.save(mission);
     }
 
@@ -45,6 +46,7 @@ public class MissionServiceImpl implements MissionService {
         this.missionRepository.delete(Id);
     }
 
+    //TODO image update
     @Override
     public Mission updateMission(MissionRequest missionRequest){
         Mission missionTmp = this.missionRepository.findOne(missionRequest.getId());
@@ -78,6 +80,7 @@ public class MissionServiceImpl implements MissionService {
             missionResponse.setBusinessHour(mission.getBusinessHour());
             missionResponse.setPhoneNumber(mission.getPhoneNumber());
             missionResponse.setCharge(mission.getCharge());
+            missionResponse.setImageUrl(mission.getImageUrl());
 
             missionResponses.add(missionResponse);
         }
@@ -101,7 +104,7 @@ public class MissionServiceImpl implements MissionService {
             missionResponse.setBusinessHour(mission.getBusinessHour());
             missionResponse.setPhoneNumber(mission.getPhoneNumber());
             missionResponse.setCharge(mission.getCharge());
-
+            missionResponse.setImageUrl(mission.getImageUrl());
 
             missionResponses.add(missionResponse);
         }

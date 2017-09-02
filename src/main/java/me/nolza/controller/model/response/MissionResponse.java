@@ -17,4 +17,5 @@ public class MissionResponse {
     private String phoneNumber;
     private String charge;
     private String description;
+    private String imageUrl;
 }

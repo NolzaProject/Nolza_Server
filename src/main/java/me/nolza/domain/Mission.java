@@ -42,4 +42,7 @@ public class Mission extends BaseEntity implements Serializable {
 
     @Column(name = "DESCRIPTION")
     private String description;
+
+    @Column(name = "IMAGE_URL")
+    private String imageUrl;
 }
