@@ -22,7 +22,7 @@ public class UserMissionResponse {
 
     private Long missionId;
 
-    private String imageUri;
+    private String imageUrl;
 
     private String location;
 
@@ -32,12 +32,13 @@ public class UserMissionResponse {
 
     private DateTime createdDate;
 
+
     public static UserMissionResponse of(UserMission userMission){
         return UserMissionResponse.builder()
                 .Id(userMission.getId())
                 .userId(userMission.getUserId())
                 .missionId(userMission.getMissionId())
-                .imageUri(userMission.getImageUri())
+                .imageUrl(userMission.getImageUrl())
                 .location(userMission.getLocation())
                 .Iscompleted(userMission.getIscompleted())
                 .Ischecked(userMission.getIschecked())
