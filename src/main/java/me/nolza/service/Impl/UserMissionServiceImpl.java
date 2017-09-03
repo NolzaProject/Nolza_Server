@@ -7,6 +7,7 @@ import me.nolza.controller.model.request.UserMissionRequest;
 import me.nolza.controller.model.response.UserMissionResponse;
 import me.nolza.domain.UserMission;
 import me.nolza.repository.UserMissionRepository;
+import me.nolza.service.custom.S3Service;
 import me.nolza.service.custom.UserMissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,11 +25,16 @@ public class UserMissionServiceImpl implements UserMissionService {
     @Autowired
     private UserMissionRepository userMissionRepository;
 
+    @Autowired
+    private S3Service s3Service;
+
     //TODO 미션 완료한 시간 넣어야 함
     @Override
     public void createUserMission(UserMissionRequest userMissionRequest) {
+        s3Service.createObject(userMissionRequest.getImage());
+        String imageUrl = s3Service.findObject(userMissionRequest.getImage().getOriginalFilename());
         UserMission userMission = UserMission.of(userMissionRequest.getUserId(), userMissionRequest.getMissionId(),
-                userMissionRequest.getImageUri(), userMissionRequest.getLocation());
+                imageUrl, userMissionRequest.getLocation());
         this.userMissionRepository.save(userMission);
     }
 
@@ -47,8 +53,13 @@ public class UserMissionServiceImpl implements UserMissionService {
         }
     }
 
+    //TODO 이미지 삭제
     @Override
     public void updateUserMission(UserMissionRequest userMissionRequest){
+
+        s3Service.createObject(userMissionRequest.getImage());
+        String imageUrl = s3Service.findObject(userMissionRequest.getImage().getOriginalFilename());
+
         UserMission userMissionTmp = this.userMissionRepository.findOne(userMissionRequest.getId());
 
         if(userMissionTmp.getIscompleted()) {
@@ -58,7 +69,7 @@ public class UserMissionServiceImpl implements UserMissionService {
             userMission.setId(userMissionTmp.getId());
             userMission.setUserId(userMissionTmp.getUserId());
             userMission.setMissionId(userMissionTmp.getMissionId());
-            userMission.setImageUri(userMissionRequest.getImageUri());
+            userMission.setImageUrl(imageUrl);
             userMission.setLocation(userMissionRequest.getLocation());
             userMission.setIschecked(false);
             userMission.setIscompleted(false);
@@ -77,7 +88,7 @@ public class UserMissionServiceImpl implements UserMissionService {
             userMission.setId(userMissionTmp.getId());
             userMission.setUserId(userMissionTmp.getUserId());
             userMission.setMissionId(userMissionTmp.getMissionId());
-            userMission.setImageUri(userMissionTmp.getImageUri());
+            userMission.setImageUrl(userMissionTmp.getImageUrl());
             userMission.setLocation(userMissionTmp.getLocation());
             userMission.setIschecked(true);
             userMission.setIscompleted(userMissionRequest.getIscompleted());

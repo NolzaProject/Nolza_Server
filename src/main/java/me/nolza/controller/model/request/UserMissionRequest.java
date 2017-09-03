@@ -2,6 +2,7 @@ package me.nolza.controller.model.request;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 
@@ -15,13 +16,10 @@ public class UserMissionRequest {
     private Long Id;
 
     @NotNull
-    private Long userId;
+    private long userId;
 
     @NotNull
-    private Long missionId;
-
-    @NotNull
-    private String imageUri;
+    private long missionId;
 
     private String location;
 
@@ -29,4 +27,6 @@ public class UserMissionRequest {
 
     private Boolean Ischecked;
 
+    @NotNull
+    private MultipartFile image;
 }

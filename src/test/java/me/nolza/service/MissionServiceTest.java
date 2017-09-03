@@ -32,8 +32,6 @@ public class MissionServiceTest {
     @Autowired
     private S3Service s3Service;
 
-    private MockMvc mockMvc;
-
     @Test
     public void createMissionTest() throws IOException {
 //        File file = new File("/Users/gain/img1.jpg");
