@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface UserMissionService {
     void createUserMission(UserMissionRequest userMissionRequest);
-    List<UserMissionResponse> readUserMissions(Long userId);
+    List<UserMissionResponse> readUserMissions(String eamil);
     void updateUserMission(UserMissionRequest userMissionRequest);
     void checkedUserMissions(List<UserMissionRequest> userMissionRequests);
 }

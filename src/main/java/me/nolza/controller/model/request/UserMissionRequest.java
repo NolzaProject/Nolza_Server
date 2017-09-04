@@ -16,7 +16,7 @@ public class UserMissionRequest {
     private Long Id;
 
     @NotNull
-    private long userId;
+    private String email;
 
     @NotNull
     private long missionId;

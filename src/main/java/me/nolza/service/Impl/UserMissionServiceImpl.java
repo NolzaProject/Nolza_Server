@@ -5,8 +5,10 @@ import me.nolza.controller.exception.UserMissionNotAcceptableException;
 import me.nolza.controller.exception.UserMissionNotFoundException;
 import me.nolza.controller.model.request.UserMissionRequest;
 import me.nolza.controller.model.response.UserMissionResponse;
+import me.nolza.domain.User;
 import me.nolza.domain.UserMission;
 import me.nolza.repository.UserMissionRepository;
+import me.nolza.repository.UserRepository;
 import me.nolza.service.custom.S3Service;
 import me.nolza.service.custom.UserMissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class UserMissionServiceImpl implements UserMissionService {
     private UserMissionRepository userMissionRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private S3Service s3Service;
 
     //TODO 미션 완료한 시간 넣어야 함
@@ -33,14 +38,16 @@ public class UserMissionServiceImpl implements UserMissionService {
     public void createUserMission(UserMissionRequest userMissionRequest) {
         s3Service.createObject(userMissionRequest.getImage());
         String imageUrl = s3Service.findObject(userMissionRequest.getImage().getOriginalFilename());
-        UserMission userMission = UserMission.of(userMissionRequest.getUserId(), userMissionRequest.getMissionId(),
+        User user = this.userRepository.findByEmail(userMissionRequest.getEmail());
+        UserMission userMission = UserMission.of(user.getId(), userMissionRequest.getMissionId(),
                 imageUrl, userMissionRequest.getLocation());
         this.userMissionRepository.save(userMission);
     }
 
     @Override
-    public List<UserMissionResponse> readUserMissions(Long userId) {
-        List<UserMission> userMissions = this.userMissionRepository.findByUserId(userId);
+    public List<UserMissionResponse> readUserMissions(String email) {
+        User user = this.userRepository.findByEmail(email);
+        List<UserMission> userMissions = this.userMissionRepository.findByUserId(user.getId());
         List<UserMissionResponse> userMissionResponses = new ArrayList<>();
 
         if(userMissions.size() == 0){

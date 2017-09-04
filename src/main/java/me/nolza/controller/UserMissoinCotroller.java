@@ -30,10 +30,10 @@ public class UserMissoinCotroller {
         return new NolzaApiResponse(NolzaApiResponse.OK);
     }
 
-    @ApiOperation(value = "파라미터 사용자 Id", notes = "해당 사용자가 수행한 전체 미션 목록을 가져옵니다.")
-    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
-    public NolzaApiResponse<List<UserMissionResponse>> readUserMissions(@PathVariable Long userId){
-        List<UserMissionResponse> userMissionResponses = this.userMissionService.readUserMissions(userId);
+    @ApiOperation(value = "파라미터 사용자 email", notes = "해당 사용자가 수행한 전체 미션 목록을 가져옵니다.")
+    @RequestMapping(value = "/{email}", method = RequestMethod.GET)
+    public NolzaApiResponse<List<UserMissionResponse>> readUserMissions(@PathVariable String email){
+        List<UserMissionResponse> userMissionResponses = this.userMissionService.readUserMissions(email);
         return new NolzaApiResponse<>(userMissionResponses);
     }
 
