@@ -33,7 +33,7 @@ public class UserMissionServiceTest {
         MockMultipartFile mockMultipartFile = new MockMultipartFile("test", "test.jpg", "image/jpeg", inputStream);
 
         UserMissionRequest userMissionRequest = new UserMissionRequest();
-        userMissionRequest.setUserId(1);
+        userMissionRequest.setEmail("dlrkdls91@naver.com");
         userMissionRequest.setMissionId(1);
         userMissionRequest.setImage(mockMultipartFile);
         userMissionRequest.setLocation("location");

@@ -25,7 +25,7 @@ public class UserMissoinCotroller {
 
     @ApiOperation(value = "", notes = "사용자가 수행한 미션을 생성합니다.")
     @RequestMapping(method = RequestMethod.POST)
-    public NolzaApiResponse createUserMission(@Valid @RequestBody UserMissionRequest userMissionRequest){
+    public NolzaApiResponse createUserMission(UserMissionRequest userMissionRequest){
         this.userMissionService.createUserMission(userMissionRequest);
         return new NolzaApiResponse(NolzaApiResponse.OK);
     }
@@ -39,7 +39,7 @@ public class UserMissoinCotroller {
 
     @ApiOperation(value = "", notes = "사용자가 수행한 미션을 수정합니다.")
     @RequestMapping(method = RequestMethod.PUT)
-    public NolzaApiResponse updateUserMission(@RequestBody UserMissionRequest userMissionRequest){
+    public NolzaApiResponse updateUserMission(UserMissionRequest userMissionRequest){
         this.userMissionService.updateUserMission(userMissionRequest);
         return new NolzaApiResponse(NolzaApiResponse.OK);
     }
