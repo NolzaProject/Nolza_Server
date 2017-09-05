@@ -1,6 +1,7 @@
 package me.nolza.service.Impl;
 
 import lombok.extern.slf4j.Slf4j;
+import me.nolza.controller.exception.NotUniqueIdException;
 import me.nolza.controller.model.request.UserRequest;
 import me.nolza.domain.User;
 import me.nolza.repository.RoleRepository;
@@ -43,9 +44,8 @@ public class UserServiceImpl implements UserService{
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     //TODO 현재 로그인 된 유저 아이디 찾는 기능 구현
-
     @Override
-    public void createUser(UserRequest userRequest) {
+    public void createUser(UserRequest userRequest) throws NotUniqueIdException {
         User user = new User();
         user.setEmail(userRequest.getEmail());
         user.setNation(userRequest.getNation());
@@ -53,7 +53,8 @@ public class UserServiceImpl implements UserService{
         user.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()));
         user.setDuration(userRequest.getDuration());
         user.addRoles(this.roleRepository.findByRole("ROLE_USER"));
-        userRepository.save(user);
+        if(validateBeforeCreate(user)) userRepository.save(user);
+        else throw new NotUniqueIdException();
     }
 
     @Override
@@ -69,6 +70,15 @@ public class UserServiceImpl implements UserService{
         }
         session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
         return session.getId();
+    }
+
+    /* 유효성 검사 */
+
+    private Boolean validateBeforeCreate(User user) {
+        User oldUser = this.userRepository.findByEmail(user.getEmail());
+        if (oldUser != null)
+            return false;
+        return true;
     }
 
 }
