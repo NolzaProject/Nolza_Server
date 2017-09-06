@@ -7,9 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface S3Service {
     public void createFolder(String root, String folderName);
-    public String findObject(String fileName);
+    public String findObject(String folderName,String fileName);
     public void deleteFolder(String folderName);
-    public void createObject(MultipartFile multipartFile);
-    public void createObjects(String location, MultipartFile[] files);
+    public void createObject(MultipartFile multipartFile, String folderName);
+    //public void createObjects(String location, MultipartFile[] files);
     public void deleteObject(String key);
 }

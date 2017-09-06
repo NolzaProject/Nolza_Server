@@ -36,8 +36,8 @@ public class UserMissionServiceImpl implements UserMissionService {
     //TODO 미션 완료한 시간 넣어야 함
     @Override
     public void createUserMission(UserMissionRequest userMissionRequest) {
-        s3Service.createObject(userMissionRequest.getImage());
-        String imageUrl = s3Service.findObject(userMissionRequest.getImage().getOriginalFilename());
+        s3Service.createObject(userMissionRequest.getImage(), "usermission");
+        String imageUrl = s3Service.findObject("usermission", userMissionRequest.getImage().getOriginalFilename());
         User user = this.userRepository.findByEmail(userMissionRequest.getEmail());
         UserMission userMission = UserMission.of(user.getId(), userMissionRequest.getMissionId(),
                 imageUrl, userMissionRequest.getLocation());
@@ -63,10 +63,8 @@ public class UserMissionServiceImpl implements UserMissionService {
     //TODO 이미지 삭제
     @Override
     public void updateUserMission(UserMissionRequest userMissionRequest){
-
-        s3Service.createObject(userMissionRequest.getImage());
-        String imageUrl = s3Service.findObject(userMissionRequest.getImage().getOriginalFilename());
-
+        s3Service.createObject(userMissionRequest.getImage(), "usermission");
+        String imageUrl = s3Service.findObject("usermission", userMissionRequest.getImage().getOriginalFilename());
         UserMission userMissionTmp = this.userMissionRepository.findOne(userMissionRequest.getId());
 
         if(userMissionTmp.getIscompleted()) {

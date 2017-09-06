@@ -30,8 +30,8 @@ public class MissionController {
     @ApiOperation(value = "", notes = "미션을 생성합니다.")
     @RequestMapping(method = RequestMethod.POST)
     public NolzaApiResponse createMission(MissionRequest missionRequest){
-        s3Service.createObject(missionRequest.getImage());
-        String imageUrl = s3Service.findObject(missionRequest.getImage().getOriginalFilename());
+        s3Service.createObject(missionRequest.getImage(), "mission");
+        String imageUrl = s3Service.findObject("mission", missionRequest.getImage().getOriginalFilename());
         this.missionService.createMission(missionRequest, imageUrl);
         return new NolzaApiResponse(NolzaApiResponse.OK);
     }

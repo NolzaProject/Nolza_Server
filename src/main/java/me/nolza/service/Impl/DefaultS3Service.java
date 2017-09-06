@@ -46,13 +46,13 @@ public class DefaultS3Service implements S3Service {
     }
 
     @Override
-    public void createObject(MultipartFile multipartFile) {
+    public void createObject(MultipartFile multipartFile, String folderName) {
         ObjectMetadata om = new ObjectMetadata();
         om.setContentEncoding("UTF-8");
         om.setContentLength(multipartFile.getSize());
         om.setContentType(multipartFile.getContentType());
         StringBuilder sb = new StringBuilder();
-        sb.append("mission/").append(multipartFile.getOriginalFilename());
+        sb.append(folderName + "/").append(multipartFile.getOriginalFilename());
         try {
             this.amazonS3.putObject(new PutObjectRequest(bucket,sb.toString(),
                     multipartFile.getInputStream(),om).withCannedAcl(CannedAccessControlList.PublicRead));
@@ -62,17 +62,17 @@ public class DefaultS3Service implements S3Service {
 
     }
 
-    @Override
-    public void createObjects(String location, MultipartFile[] files) {
-        Arrays.stream(files).forEach(file -> {
-            createObject(file);
-        });
-    }
+//    @Override
+//    public void createObjects(String location, MultipartFile[] files) {
+//        Arrays.stream(files).forEach(file -> {
+//            createObject(file);
+//        });
+//    }
 
     //TODO Object 없을 시 error처리
     @Override
-    public String findObject(String fileName) {
-        S3Object s3 = this.amazonS3.getObject(bucket, "mission/" + fileName);
+    public String findObject(String folderName, String fileName) {
+        S3Object s3 = this.amazonS3.getObject(bucket, folderName + "/" + fileName);
         return ROOT + s3.getKey();
     }
 

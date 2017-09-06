@@ -81,6 +81,7 @@ public class MissionServiceImpl implements MissionService {
             missionResponse.setPhoneNumber(mission.getPhoneNumber());
             missionResponse.setCharge(mission.getCharge());
             missionResponse.setImageUrl(mission.getImageUrl());
+            missionResponse.setDescription(mission.getDescription());
 
             missionResponses.add(missionResponse);
         }
