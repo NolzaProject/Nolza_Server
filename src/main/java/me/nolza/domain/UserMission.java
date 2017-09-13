@@ -32,21 +32,17 @@ public class UserMission extends BaseEntity implements Serializable {
     @Column(name = "IMAGE_URL")
     private String imageUrl;
 
-    @Column(name = "LOCATION")
-    private String location;
-
     @Column(name = "ISCOMPLETED", nullable = false, columnDefinition = "TINYINT(1)")
     private Boolean Iscompleted;
 
     @Column(name = "ISCHECKED", nullable = false, columnDefinition = "TINYINT(1)")
     private Boolean Ischecked;
 
-    public static UserMission of(long userId, long missionId, String imageUrl, String location){
+    public static UserMission of(long userId, long missionId, String imageUrl){
         return UserMission.builder()
                 .userId(userId)
                 .missionId(missionId)
                 .imageUrl(imageUrl)
-                .location(location)
                 .Iscompleted(false)
                 .Ischecked(false)
                 .build();

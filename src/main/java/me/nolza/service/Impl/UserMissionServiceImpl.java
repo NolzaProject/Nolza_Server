@@ -40,7 +40,7 @@ public class UserMissionServiceImpl implements UserMissionService {
         String imageUrl = s3Service.findObject("usermission", userMissionRequest.getImage().getOriginalFilename());
         User user = this.userRepository.findByEmail(userMissionRequest.getEmail());
         UserMission userMission = UserMission.of(user.getId(), userMissionRequest.getMissionId(),
-                imageUrl, userMissionRequest.getLocation());
+                imageUrl);
         this.userMissionRepository.save(userMission);
     }
 
@@ -75,7 +75,6 @@ public class UserMissionServiceImpl implements UserMissionService {
             userMission.setUserId(userMissionTmp.getUserId());
             userMission.setMissionId(userMissionTmp.getMissionId());
             userMission.setImageUrl(imageUrl);
-            userMission.setLocation(userMissionRequest.getLocation());
             userMission.setIschecked(false);
             userMission.setIscompleted(false);
             userMission.setCreatedDate(userMissionTmp.getCreatedDate());
@@ -94,7 +93,6 @@ public class UserMissionServiceImpl implements UserMissionService {
             userMission.setUserId(userMissionTmp.getUserId());
             userMission.setMissionId(userMissionTmp.getMissionId());
             userMission.setImageUrl(userMissionTmp.getImageUrl());
-            userMission.setLocation(userMissionTmp.getLocation());
             userMission.setIschecked(true);
             userMission.setIscompleted(userMissionRequest.getIscompleted());
             userMission.setCreatedDate(userMissionTmp.getCreatedDate());

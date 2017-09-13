@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import me.nolza.controller.model.request.MissionRequest;
 import me.nolza.controller.model.response.MissionResponse;
 import me.nolza.controller.model.response.NolzaApiResponse;
+import me.nolza.controller.model.response.RecommendMissionsResponse;
 import me.nolza.service.custom.MissionService;
 import me.nolza.service.custom.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +58,16 @@ public class MissionController {
         return new NolzaApiResponse<>(missionResponses);
     }
 
-    @ApiOperation(value = "파라미터 카테고리 Id", notes = "카테고리에 해당하는 미션을 가져옵니다.")
-    @RequestMapping(method = RequestMethod.GET, value = "/{categoryId}")
-    public NolzaApiResponse<List<MissionResponse>> readCategoryMission(@PathVariable Long categoryId){
-        List<MissionResponse> missionResponses = this.missionService.readCategoryMissions(categoryId);
-        return new NolzaApiResponse<>(missionResponses);
+    @ApiOperation(value = "파라미터 email", notes = "카테고리에 해당하는 미션을 가져옵니다.")
+    @RequestMapping(method = RequestMethod.GET, value = "/category/{email:.+}", produces = "application/json")
+    public NolzaApiResponse<RecommendMissionsResponse> recommendMissons(@PathVariable String email){
+        RecommendMissionsResponse recommendMissionsResponses = this.missionService.recommendMissions(email);
+        return new NolzaApiResponse<>(recommendMissionsResponses);
+    }
+
+    @ApiOperation(value = "파라미터 사용자가 검색한 단어(description)", notes = "카테고리에 해당하는 미션을 가져옵니다.")
+    @RequestMapping(method = RequestMethod.GET, value = "/description/{description}")
+    public NolzaApiResponse<List<MissionResponse>> searchMissions(@PathVariable String description){
+        return this.missionService.searchMissions(description);
     }
 }
